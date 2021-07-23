@@ -10,9 +10,9 @@ file = open('data.min.json')
 data = json.load(file)
 
 # For TotaL cases Overview of india per day
-# countryDelta = data['TT']['delta']
-# print(countryDelta)
-# print('*'*100)
+countryDelta = data['TT']['delta']
+print(countryDelta)
+print('*'*100)
 
 # For State Wise Details per day
 stateCode = ["AN","AP","AR","AS","BR","CH","CT","DN","DL","GA","GJ","HR","HP","JK","JH","KA","KL","LA","LD","MP","MH","MN","ML","MZ","NL","OR","PY","PB","RJ","SK","TN","TG","TR","UP","UT","WB"]
@@ -27,14 +27,14 @@ print(stateData)
 print('*'*100)
 
 # District Wise details:
-# distData = []
-# for i in stateCode:
-#     for j in data[i]['districts']:
-#         try:
-#             distData.append([j,data[i]['districts'][j]['delta']])
-#         except:
-#             pass
-# print(distData)
-# print('*'*100)
+distData = []
+for i in stateCode:
+    for j in data[i]['districts']:
+        try:
+            distData.append([j,data[i]['districts'][j]['delta']])
+        except:
+            pass
+print(distData)
+print('*'*100)
 
 

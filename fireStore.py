@@ -1,6 +1,7 @@
 import firebase_admin
 import json
 import requests
+from datetime import datetime
 from firebase_admin import credentials
 from firebase_admin import firestore
 
@@ -22,6 +23,12 @@ data1 = json.load(file1)
 cred = credentials.Certificate('learningfirebase-7cd69-firebase-adminsdk-fsg0o-75b0f8a9d5.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
+
+
+currentTime = datetime.now()
+data_ref = db.collection(u'countryDailyDelta').document(u'lastUpdated')
+data_ref.set({"time" : currentTime})
+
 
 
 # For TotaL cases Overview of india per day
