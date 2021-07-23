@@ -1,4 +1,10 @@
 import json
+import requests
+
+url = 'https://api.covid19india.org/v4/min/timeseries.min.json'
+r = requests.get(url, allow_redirects=True)
+open('timeseries.min.json', 'wb').write(r.content)
+
 file = open('timeseries.min.json')
 data = json.load(file)
 

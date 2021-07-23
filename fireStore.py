@@ -24,17 +24,40 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
+# For TotaL cases Overview of india per day
+countryDelta = data['TT']['delta']
+data_ref = db.collection(u'countryDailyDelta').document(u'TT')
+data_ref.set(countryDelta)
+
+# For State Wise & district wise Details per day
+stateCode = ["AN","AP","AR","AS","BR","CH","CT","DN","DL","GA","GJ","HR","HP","JK","JH","KA","KL","LA","LD","MP","MH","MN","ML","MZ","NL","OR","PY","PB","RJ","SK","TN","TG","TR","UP","UT","WB"]
+for i in stateCode:
+    try:
+        data[i]['delta']
+        data_ref = db.collection(u'stateDailyDelta').document(i)
+        data_ref.set(data[i]['delta'])
+    except:
+        pass
+    for j in data[i]['districts']:
+        try:
+            data[i]['districts'][j]['delta']
+            data_ref1 = db.collection(u'stateDailyDelta').document(i).collection('districts').document(j)
+            data_ref1.set(data[i]['districts'][j]['delta'])
+        except:
+            pass
+
+
 # # For Total cases Overview of india
 countryData = data['TT']['total']
 data_ref = db.collection(u'countryWiseRecord').document(u'TT')
 data_ref.set(countryData)
 
-# # data_ref = db.collection(u'covidData').document(u'TT')
-# # a = data_ref.get()
-# # print(a.to_dict())
+# data_ref = db.collection(u'covidData').document(u'TT')
+# a = data_ref.get()
+# print(a.to_dict())
 
 
-# # For State & district wise total cases
+# For State & district wise total cases
 stateCode = ["AN","AP","AR","AS","BR","CH","CT","DN","DL","GA","GJ","HR","HP","JK","JH","KA","KL","LA","LD","MP","MH","MN","ML","MZ","NL","OR","PY","PB","RJ","SK","TN","TG","TR","UP","UT","WB"]
 for i in stateCode:
     data_ref = db.collection(u'stateWiseRecord').document(i)
