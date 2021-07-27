@@ -28,50 +28,50 @@ stateCode = ["AN","AP","AR","AS","BR","CH","CT","DN","DL","GA","GJ","HR","HP","J
 
 currentTime = datetime.now()
 data_ref = db.collection(u'countryDailyDelta').document(u'lastUpdated')
-data_ref.set({"time" : currentTime})
+data_ref.update({"time" : currentTime})
 
 
 
-# # For TotaL cases Overview of india per day
-# countryDelta = data['TT']['delta']
-# data_ref = db.collection(u'countryDailyDelta').document(u'TT')
-# data_ref.set(countryDelta)
+# For TotaL cases Overview of india per day
+countryDelta = data['TT']['delta']
+data_ref = db.collection(u'countryDailyDelta').document(u'TT')
+data_ref.update(countryDelta)
 
-# # For State Wise & district wise Details per day
-# stateCode = ["AN","AP","AR","AS","BR","CH","CT","DN","DL","GA","GJ","HR","HP","JK","JH","KA","KL","LA","LD","MP","MH","MN","ML","MZ","NL","OR","PY","PB","RJ","SK","TN","TG","TR","UP","UT","WB"]
-# for i in stateCode:
-#     try:
-#         data[i]['delta']
-#         data_ref = db.collection(u'stateDailyDelta').document(i)
-#         data_ref.set(data[i]['delta'])
-#     except:
-#         pass
-#     for j in data[i]['districts']:
-#         try:
-#             data[i]['districts'][j]['delta']
-#             data_ref1 = db.collection(u'stateDailyDelta').document(i).collection('districts').document(j)
-#             data_ref1.set(data[i]['districts'][j]['delta'])
-#         except:
-#             pass
-
-
-# # # For Total cases Overview of india
-# countryData = data['TT']['total']
-# data_ref = db.collection(u'countryWiseRecord').document(u'TT')
-# data_ref.set(countryData)
-
-# # data_ref = db.collection(u'covidData').document(u'TT')
-# # a = data_ref.get()
-# # print(a.to_dict())
+# For State Wise & district wise Details per day
+stateCode = ["AN","AP","AR","AS","BR","CH","CT","DN","DL","GA","GJ","HR","HP","JK","JH","KA","KL","LA","LD","MP","MH","MN","ML","MZ","NL","OR","PY","PB","RJ","SK","TN","TG","TR","UP","UT","WB"]
+for i in stateCode:
+    try:
+        data[i]['delta']
+        data_ref = db.collection(u'stateDailyDelta').document(i)
+        data_ref.update(data[i]['delta'])
+    except:
+        pass
+    for j in data[i]['districts']:
+        try:
+            data[i]['districts'][j]['delta']
+            data_ref1 = db.collection(u'stateDailyDelta').document(i).collection('districts').document(j)
+            data_ref1.update(data[i]['districts'][j]['delta'])
+        except:
+            pass
 
 
-# # For State & district wise total cases
-# for i in stateCode:
-#     data_ref = db.collection(u'stateWiseRecord').document(i)
-#     data_ref.set(data[i]['total'])
-#     for j in data[i]['districts']:
-#         data_ref1 = db.collection(u'stateWiseRecord').document(i).collection('districts').document(j)
-#         data_ref1.set(data[i]['districts'][j]['total'])
+# # For Total cases Overview of india
+countryData = data['TT']['total']
+data_ref = db.collection(u'countryWiseRecord').document(u'TT')
+data_ref.update(countryData)
+
+# data_ref = db.collection(u'covidData').document(u'TT')
+# a = data_ref.get()
+# print(a.to_dict())
+
+
+# For State & district wise total cases
+for i in stateCode:
+    data_ref = db.collection(u'stateWiseRecord').document(i)
+    data_ref.update(data[i]['total'])
+    for j in data[i]['districts']:
+        data_ref1 = db.collection(u'stateWiseRecord').document(i).collection('districts').document(j)
+        data_ref1.update(data[i]['districts'][j]['total'])
 
 # Country Time Series
 TTconfirmed = []
@@ -141,7 +141,7 @@ for i in data1['TT']['dates']:
     except:
         pass
 data_ref = db.collection(u'countryTimeSeries').document(u'TT')
-data_ref.set({
+data_ref.update({
     "confirmed" : TTconfirmed,
     "deceased" : TTdeceased,
     "recovered" : TTrecovered,
@@ -228,7 +228,7 @@ for i in stateCode:
         except:
             pass
     data_ref = db.collection(u'stateTimeSeries').document(i)
-    data_ref.set({
+    data_ref.update({
         "confirmed" : confirmed,
         "deceased" : deceased,
         "recovered" : recovered,
