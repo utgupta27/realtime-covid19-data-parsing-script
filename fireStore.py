@@ -5,17 +5,17 @@ from datetime import date, datetime
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-# url = 'https://api.covid19india.org/v4/min/data.min.json'
-# r = requests.get(url, allow_redirects=True)
-# open('data.min.json', 'wb').write(r.content)
+url = 'https://api.covid19india.org/v4/min/data.min.json'
+r = requests.get(url, allow_redirects=True)
+open('data.min.json', 'wb').write(r.content)
 
 file = open('data.min.json')
 data = json.load(file)
 
 
-# url1 = 'https://api.covid19india.org/v4/min/timeseries.min.json'
-# r1 = requests.get(url1, allow_redirects=True)
-# open('timeseries.min.json', 'wb').write(r1.content)
+url1 = 'https://api.covid19india.org/v4/min/timeseries.min.json'
+r1 = requests.get(url1, allow_redirects=True)
+open('timeseries.min.json', 'wb').write(r1.content)
 
 file1 = open('timeseries.min.json')
 data1 = json.load(file1)
